@@ -1,0 +1,25 @@
+sudo: false
+language: rust
+  - stable
+  - beta
+  - nightly
+matrix:
+  include:
+    - os: linux
+      addons:
+        apt:
+          sources:
+          - sourceline: 'ppa:staticfloat/julianightlies'
+          - sourceline: 'ppa:staticfloat/julia-deps'
+          packages:
+          - julia
+  allow_failures:
+    - rust: nightly
+branches:
+  only:
+    - master
+notifications:
+  email: false
+script:
+  - cargo build --release --verbose
+  - target/release/julia-pkg

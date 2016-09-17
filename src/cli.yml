@@ -1,0 +1,41 @@
+name: julia-pkg
+version: 0.0.1
+author: Alex Arslan
+about: Install and manage Julia packages from the command line
+settings:
+    - SubcommandRequiredElseHelp
+    - VersionlessSubcommands
+    - TrailingVarArg
+subcommands:
+    - install:
+        about: Install one or more packages
+        args:
+            - git:
+                help: Clone the default branch from the given Git URL
+                short: g
+                long: git
+                takes_value: true
+                value_name: URL
+                conflicts_with: packages
+                required: false
+            - packages:
+                help: Package(s) to install
+                conflicts_with: git
+                multiple: true
+                required: true
+    - remove:
+        about: Remove one or more packages
+        args:
+            - packages:
+                help: Package(s) to remove
+                required: true
+                multiple: true
+    - update:
+        about: Update all installed packages
+    - list:
+        about: List the name and version of one or more installed packages
+        args:
+            - packages:
+                help: Package(s) for which status is checked
+                required: false
+                multiple: true
